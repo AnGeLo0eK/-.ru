@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вебинар.ru - Платформа онлайн-обучения</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for elements that need more specific styling */
+        .gradient-bg {
+            background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+        }
+        .webinar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .speaker-card:hover img {
+            transform: scale(1.05);
+        }
+        #calendar {
+            scrollbar-width: thin;
+            scrollbar-color: #4F46E5 #E5E7EB;
+        }
+        #calendar::-webkit-scrollbar {
+            width: 8px;
+        }
+        #calendar::-webkit-scrollbar-track {
+            background: #E5E7EB;
+        }
+        #calendar::-webkit-scrollbar-thumb {
+            background-color: #4F46E5;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-video text-indigo-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">Вебинар.ru</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium">Главная</a>
+                    <a href="#webinars" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Вебинары</a>
+                    <a href="#speakers" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Спикеры</a>
+                    <a href="#calendar-section" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Календарь</a>
+                    <button id="login-btn" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Вход</button>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <span class="sr-only">Открыть главное меню</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Главная</a>
+                <a href="#webinars" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Вебинары</a>
+                <a href="#speakers" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Спикеры</a>
+                <a href="#calendar-section" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Календарь</a>
+                <div class="pt-4 pb-3 border-t border-gray-200">
+                    <div class="mt-3 space-y-1">
+                        <button id="mobile-login-btn" class="block w-full px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Вход</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                    Учитесь у лучших экспертов в своей области
+                </h1>
+                <p class="mt-6 max-w-lg mx-auto text-xl">
+Присоединяйтесь к интерактивным вебинарам, расширяйте свои знания и общайтесь с профессионалами по всему миру.                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="#webinars" class="bg-white text-indigo-600 px-8 py-3 rounded-md text-base font-medium hover:bg-gray-100 md:py-4 md:text-lg md:px-10">
+                        Просматривайте вебинары
+                    </a>
+                    <a href="#" class="bg-indigo-500 bg-opacity-70 text-white px-8 py-3 rounded-md text-base font-medium hover:bg-opacity-80 md:py-4 md:text-lg md:px-10">
+                        Станьте спикером
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Webinars Section -->
+    <div id="webinars" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Предстоящие события</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Присоединяйтесь к Нашим Следующим вебинарам
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Webinar Card 1 -->
+                    <div class="webinar-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="relative pb-48 overflow-hidden">
+                            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1496065187959-7f07b8353c55?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Webinar image">
+                            <div class="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">
+                                Free
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-500">Июнь 15, 2025</span>
+                                <span class="mx-2 text-gray-300">•</span>
+                                <span class="text-sm text-gray-500">10:00 по МСК</span>
+                            </div>
+                            <h3 class="mt-2 font-semibold text-gray-900 text-lg">Тенденции цифрового маркетинга 2025</h3>
+                            <p class="mt-2 text-gray-600">Узнайте о последних тенденциях в цифровом маркетинге и о том, как внедрить их в свою стратегию.</p>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Александра Афонасьевна</p>
+                                    <p class="text-sm text-gray-500">Директор по маркетингу</p>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="register-btn w-full bg-indigo-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700">
+                                    Зарегистрируйтесь прямо сейчас
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Webinar Card 2 -->
+                    <div class="webinar-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="relative pb-48 overflow-hidden">
+                            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Webinar image">
+                            <div class="absolute top-4 right-4 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                Premium
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-500">Июнь 18, 2025</span>
+                                <span class="mx-2 text-gray-300">•</span>
+                                <span class="text-sm text-gray-500">14:00 по МСК</span>
+                            </div>
+                            <h3 class="mt-2 font-semibold text-gray-900 text-lg">Продвинутое программирование на Python</h3>
+                            <p class="mt-2 text-gray-600">Углубитесь в расширенные возможности Python и лучшие практики профессионального развития.</p>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Алексей Смирнов</p>
+                                    <p class="text-sm text-gray-500">Старший инженер-программист</p>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="register-btn w-full bg-indigo-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700">
+                                    Зарегистрируйтесь прямо сейчас 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Webinar Card 3 -->
+                    <div class="webinar-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="relative pb-48 overflow-hidden">
+                            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Webinar image">
+                            <div class="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">
+                                Free
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-500">Июнь 22, 2025</span>
+                                <span class="mx-2 text-gray-300">•</span>
+                                <span class="text-sm text-gray-500">11:00 по МСК</span>
+                            </div>
+                            <h3 class="mt-2 font-semibold text-gray-900 text-lg">Лидерство в удаленных командах</h3>
+                            <p class="mt-2 text-gray-600">Эффективные стратегии для руководства распределенными командами и поддержания производительности.</p>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Екатерина Волкова</p>
+                                    <p class="text-sm text-gray-500">Генеральный директор</p>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="register-btn w-full bg-indigo-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700">
+                                    Зарегистрируйтесь прямо сейчас
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    Просмотреть все вебинары
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Speakers Section -->
+    <div id="speakers" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Эксперты</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Познакомьтесь с нашими Основными докладчиками
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Учитесь у лидеров отрасли и экспертов в своей области.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Speaker 1 -->
+                    <div class="speaker-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="h-64 overflow-hidden">
+                            <img class="w-full h-full object-cover transition-transform duration-300 ease-in-out" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Дмитрий Ковалев</h3>
+                            <p class="text-sm text-indigo-600">Эксперт в области обработки данных</p>
+                            <p class="mt-2 text-sm text-gray-500">Бывший ведущий специалист по обработке данных в TechCorp с более чем 15-летним опытом работы в области машинного обучения.</p>
+                            <div class="mt-4 flex space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded text-sm font-medium">
+                                Просмотр вебинаров
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 2 -->
+                    <div class="speaker-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="h-64 overflow-hidden">
+                            <img class="w-full h-full object-cover transition-transform duration-300 ease-in-out" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Ольга Соколова</h3>
+                            <p class="text-sm text-indigo-600">Дизайнер пользовательского интерфейса</p>
+                            <p class="mt-2 text-sm text-gray-500">Отмеченный наградами дизайнер, обладающий опытом в создании интуитивно понятных пользовательских интерфейсов.</p>
+                            <div class="mt-4 flex space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded text-sm font-medium">
+                                Просмотр вебинаров
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 3 -->
+                    <div class="speaker-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="h-64 overflow-hidden">
+                            <img class="w-full h-full object-cover transition-transform duration-300 ease-in-out" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Игорь Петров</h3>
+                            <p class="text-sm text-indigo-600">Финансовый аналитик</p>
+                            <p class="mt-2 text-sm text-gray-500">Специализируется на инвестиционных стратегиях и финансовом планировании технологических стартапов.</p>
+                            <div class="mt-4 flex space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded text-sm font-medium">
+                                Просмотр вебинаров
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 4 -->
+                    <div class="speaker-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="h-64 overflow-hidden">
+                            <img class="w-full h-full object-cover transition-transform duration-300 ease-in-out" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Speaker">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Наталья Иванова</h3>
+                            <p class="text-sm text-indigo-600">Эксперт по кибербезопасности</p>
+                            <p class="mt-2 text-sm text-gray-500">Консультант по безопасности, помогающий компаниям защитить свои цифровые активы от угроз.</p>
+                            <div class="mt-4 flex space-x-3">
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-indigo-600">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded text-sm font-medium">
+                                Просмотр вебинаров
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div id="calendar-section" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">График</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Календарь вебинаров
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                   Планируйте свое учебное путешествие с учетом наших предстоящих мероприятий.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="bg-white shadow overflow-hidden rounded-lg">
+                    <div class="px-4 py-5 sm:px-6 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Июнь 2025
+                        </h3>
+                        <div class="flex space-x-2">
+                            <button class="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">
+                                Сегодня
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <div id="calendar" class="min-w-full divide-y divide-gray-300 overflow-y-auto" style="max-height: 900px;">
+                            <!-- Calendar header -->
+                            <div class="grid grid-cols-7 gap-px bg-gray-200">
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Понедельник</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Вторник</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Среда</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Четверг</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Пятница</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Суббота</div>
+                                <div class="bg-gray-50 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Воскресенье</div>
+                            </div>
+                            <!-- Calendar body -->
+                            <div class="grid grid-cols-7 gap-px bg-gray-200">
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32"></div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">1</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">2</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">3</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">4</div>
+                                    <div class="mt-1 text-xs p-1 bg-purple-100 rounded text-purple-800">Вебинар: Введение в React</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">5</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">6</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">7</div>
+                                    <div class="mt-1 text-xs p-1 bg-purple-100 rounded text-purple-800">Вебинар: UX-дизайн</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">8</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">9</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">10</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">11</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">12</div>
+                                    <div class="mt-1 text-xs p-1 bg-blue-100 rounded text-blue-800">Вебинар: Цифровой маркетинг</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">13</div>
+                                    <div class="mt-1 text-xs p-1 bg-green-100 rounded text-green-800">Вебинар: Облачные вычисления</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">14</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">15</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">16</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">17</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">18</div>
+                                    <div class="mt-1 text-xs p-1 bg-yellow-100 rounded text-yellow-800">Вебинар: Python Advanced</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">19</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">20</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">21</div>
+                                    <div class="mt-1 text-xs p-1 bg-red-100 rounded text-red-800">Вебинар: Наука о данных</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">22</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">23</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">24</div>
+                                    <div class="mt-1 text-xs p-1 bg-pink-100 rounded text-pink-800">Вебинар: Кибербезопасность</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">25</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">26</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">27</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">28</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">29</div>
+                                </div>
+                                <div class="bg-white h-32 p-1 relative">
+                                    <div class="text-right">30</div>
+                                    <div class="mt-1 text-xs p-1 bg-indigo-100 rounded text-indigo-800">Вебинар: Дистанционное руководство</div>
+                                </div>
+                                <div class="bg-white h-32"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="hidden fixed z-50 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-user-plus text-indigo-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Зарегистрируйтесь на вебинар
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">
+                                    Пожалуйста, заполните форму ниже, чтобы зарегистрироваться на этот вебинар.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-700">ФИО</label>
+                                <input type="text" id="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mb-4">
+                                <label for="company" class="block text-sm font-medium text-gray-700">Компания (необязательно)</label>
+                                <input type="text" id="company" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700">Подробности вебинара</label>
+                                <div class="mt-2 p-3 bg-gray-50 rounded-md">
+                                    <p class="text-sm font-medium" id="webinar-title">Digital Marketing Trends 2023</p>
+                                    <p class="text-xs text-gray-500 mt-1" id="webinar-date">Июнь 15, 2025  10:00 по МСК</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Регистрация
+                    </button>
+                    <button id="cancel-registration" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Отменить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed z-50 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-sign-in-alt text-indigo-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Войдите в свою учетную запись
+                            </h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">
+                                    Получите доступ к истории ваших вебинаров и персонализированным рекомендациям.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <form>
+                            <div class="mb-4">
+                                <label for="login-email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="login-email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mb-4">
+                                <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" id="login-password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                    <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                                        Запомнить меня
+                                    </label>
+                                </div>
+                                <div class="text-sm">
+                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        Забыли свой пароль?
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Войти
+                    </button>
+                    <button id="cancel-login" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Отменить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-sm font-semibold tracking-wider uppercase">Вебинар.ru</h3>
+                    <p class="mt-4 text-gray-300 text-sm">
+                        Ведущая платформа для профессионального развития с помощью интерактивных вебинаров.
+                    </p>
+                </div>
+                
+                <p class="mt-8 text-gray-400 text-sm md:mt-0 md:order-1">
+                    &copy; 2025 Вебинар.ru. 
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Registration modal
+        const registerButtons = document.querySelectorAll('.register-btn');
+        const registrationModal = document.getElementById('registration-modal');
+        const cancelRegistration = document.getElementById('cancel-registration');
+
+        registerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Get webinar details from the card
+                const card = this.closest('.webinar-card');
+                const title = card.querySelector('h3').textContent;
+                const date = card.querySelector('span:nth-child(1)').textContent;
+                const time = card.querySelector('span:nth-child(3)').textContent;
+                
+                // Update modal content
+                document.getElementById('webinar-title').textContent = title;
+                document.getElementById('webinar-date').textContent = `${date} at ${time}`;
+                
+                // Show modal
+                registrationModal.classList.remove('hidden');
+            });
+        });
+
+        cancelRegistration.addEventListener('click', function() {
+            registrationModal.classList.add('hidden');
+        });
+
+        // Login modal
+        const loginButtons = [document.getElementById('login-btn'), document.getElementById('mobile-login-btn')];
+        const loginModal = document.getElementById('login-modal');
+        const cancelLogin = document.getElementById('cancel-login');
+
+        loginButtons.forEach(button => {
+            if (button) {
+                button.addEventListener('click', function() {
+                    loginModal.classList.remove('hidden');
+                });
+            }
+        });
+
+        cancelLogin.addEventListener('click', function() {
+            loginModal.classList.add('hidden');
+        });
+
+        // Close modals when clicking outside
+        [registrationModal, loginModal].forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Arik8828/f" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
